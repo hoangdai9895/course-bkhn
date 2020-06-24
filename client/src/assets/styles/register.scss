@@ -1,0 +1,14 @@
+@import "./theme";
+.register__modal {
+  & > input {
+    margin-bottom: 1rem;
+    @include border-button;
+  }
+  .ant-input-password {
+    @extend input;
+    @include border-button;
+  }
+  .register_button {
+    @include border-button;
+  }
+}

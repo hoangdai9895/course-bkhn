@@ -1,0 +1,36 @@
+.login-main {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0 0 0 90px;
+}
+
+.login-form {
+  padding: 40px;
+  background: #fff;
+  border-radius: 7px;
+  .login-form__header {
+    font-size: 1.6rem;
+  }
+  & > input {
+    margin-bottom: 1rem;
+    @include border-button;
+  }
+  .ant-input-password {
+    @extend input;
+    @include border-button;
+  }
+  .login__button {
+    @include border-button;
+  }
+  .login-redirect {
+    color: blue;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0 3px;
+    transition: 250ms;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

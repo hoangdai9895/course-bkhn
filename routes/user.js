@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-// Register ==================================
+// Register ======================================
 router.post("/register", (req, res) => {
   User.findOne({ username: req.body.username }).then((user) => {
     if (user) {
