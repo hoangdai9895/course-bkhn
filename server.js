@@ -26,21 +26,21 @@ app.use(passport.session());
 
 // connect db
 mongoose
-  .connect(process.env.MONGOURL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Mongodb conected !!!"))
-  .catch((err) => console.log(err));
+	.connect(process.env.MONGOURL, {
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => console.log("Mongodb conected !!!"))
+	.catch((err) => console.log(err));
 
 // passport config
 require("./config/passport")(passport);
 
 // set global vars
 app.use((req, res, next) => {
-  res.locals.user = req.user || null;
-  next();
+	res.locals.user = req.user || null;
+	next();
 });
 
 // router
@@ -52,10 +52,10 @@ app.use("/api/result", result);
 
 // server static asts if in production
 if (process.env.NODE_ENV == "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
+	app.use(express.static("client/build"));
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+	});
 }
 
 app.listen(port, () => console.log(`Server running on ${port}`));
