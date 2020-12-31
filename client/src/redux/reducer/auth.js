@@ -1,4 +1,10 @@
-import { SET_CURRENT_USER, LOGIN_FAILED, LOGIN_LOADING } from "../actions/type";
+import {
+	SET_CURRENT_USER,
+	LOGIN_FAILED,
+	LOGIN_LOADING,
+	REGISTER_SUCCESS,
+	REGISTER_FAILED,
+} from "../actions/type";
 
 const initialState = {
 	isAuthenticated: false,
@@ -19,6 +25,10 @@ export default function (state = initialState, action) {
 	switch (action.type) {
 		case LOGIN_LOADING:
 			return { ...state, loading: true };
+		case REGISTER_SUCCESS:
+			return { ...state, loading: false };
+		case REGISTER_FAILED:
+			return { ...state, loading: false };
 		case SET_CURRENT_USER:
 			return {
 				...state,
