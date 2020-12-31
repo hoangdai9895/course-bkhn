@@ -11,11 +11,9 @@ export const Landing = () => {
       <Content className="site-layout">
         <Row className="login">
           <Col xl={8} offset={4} className="login-intro">
-            <h1>Learn From The Expert</h1>
+            <h1>Study smarter with Exam.vn</h1>
             <div>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              <br /> Maxime ipsa nulla sed quis rerum amet natus quas
-              necessitatibus.
+              Practice thousands of Multiple choice Question created by students and teachers
             </div>
           </Col>
           <Col xl={12}>

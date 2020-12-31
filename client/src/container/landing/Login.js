@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 export const LoginSceen = () => {
   const [visible, setvisible] = useState(false);
   const [userinfo, setuserinfo] = useState({ username: "", password: "" });
-  const { loading, error, isAuthenticated } = useSelector(
+  const { loading, error, isAuthenticated, user:{role} } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
@@ -25,8 +25,9 @@ export const LoginSceen = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      console.log(role)
       setTimeout(() => {
-        history.push("/dashboard");
+        role===2? history.push("/home"):  history.push("/dashboard");
       }, 1000);
     }
   }, [isAuthenticated]);

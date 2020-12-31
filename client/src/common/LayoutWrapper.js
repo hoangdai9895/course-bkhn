@@ -1,27 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Layout, Menu, Dropdown } from "antd";
-import {
-	DesktopOutlined,
-	UserOutlined,
-	DashboardOutlined,
-} from "@ant-design/icons";
+// import {
+// 	DesktopOutlined,
+// 	UserOutlined,
+// 	DashboardOutlined,
+// } from "@ant-design/icons";
 import "../assets/styles/layout.scss";
 import { logoutUser } from "../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { menus } from "../constants/menus";
+import logo from '../assets/imgs/l.svg'
 
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const { Header, Content, Footer } = Layout;
+// const { SubMenu } = Menu;
 
 export const LayoutWrapper = (props) => {
 	const dispatch = useDispatch();
 	const {
-		user: { username },
+		user: { username, role },
 	} = useSelector((state) => state.auth);
-	const [collapsed, setcollapsed] = useState(false);
-	const toggle = () => {
-		setcollapsed(!collapsed);
-	};
+	// const [collapsed, setcollapsed] = useState(false);
+	// const toggle = () => {
+	// 	setcollapsed(!collapsed);
+	// };
 
 	const menu = (
 		<Menu>
@@ -31,28 +33,28 @@ export const LayoutWrapper = (props) => {
 		</Menu>
 	);
 
+	useEffect(() => {
+		console.log(role);
+	}, [])
+		
 	return (
 		<Layout style={{ minHeight: "100vh" }} className="layout-main">
-			{/* <Sider collapsible collapsed={collapsed} onCollapse={toggle}>
-        <div
-          className="main-layout-logo"
-          style={{ justifyContent: collapsed ? "center" : "unset" }}
-        >
-          <DashboardOutlined style={{ marginRight: collapsed ? 0 : 10 }} />
-          {!collapsed ? (
-            <Link to="/dashboard" style={{ color: "#fff" }}>
-              Dashboard
-            </Link>
-          ) : null}
-        </div>
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-        </Menu>
-      </Sider> */}
-
 			<Layout className="site-layout">
 				<Header
 					className="site-layout-background"
 					style={{ padding: 0 }}>
+					<div className="main-header">
+						<img src={logo}/>
+						<ul>
+							{
+								menus.map((e, i)=> (
+									<li key={i} >
+										<Link to={e.link} >{e.title}</Link>
+									</li>
+								))
+							}
+						</ul>
+					</div>
 					<Dropdown overlay={menu} className="header-user">
 						<a
 							className="ant-dropdown-link"
@@ -64,7 +66,15 @@ export const LayoutWrapper = (props) => {
 						</a>
 					</Dropdown>
 				</Header>
-				<hr />
+				<div className="bg-search">
+						<div className="container">
+							<div className="text">Search for anything</div>
+							<div className="input-wrap">
+								<input placeholder="Course, Document,..."/>
+							</div>
+						</div>
+				</div>
+				<hr/>
 				<Content style={{ margin: "0 10px" }}>{props.children}</Content>
 
 				<Footer style={{ textAlign: "center" }}>

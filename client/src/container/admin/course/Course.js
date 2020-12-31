@@ -88,6 +88,7 @@ export const Course = () => {
 
   useEffect(() => {
     dispatch(getAllCourse());
+    console.log(isAdmin)
   }, []);
 
   return (
@@ -100,14 +101,17 @@ export const Course = () => {
         />
       </Col>
       <Col xl={24}>
-        <Link to="/course/add-new">
+        {
+          isAdmin ? (<Link to="/course/add-new">
           <Button
             type="dashed"
             style={{ width: "100%", margin: "10px 0 10px 0" }}
           >
             <PlusCircleOutlined /> Add new course
           </Button>
-        </Link>
+        </Link>) :null
+        }
+        
         <Table
           columns={columns}
           loading={loading}

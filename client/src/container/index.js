@@ -10,6 +10,7 @@ import { Course } from "./admin/course/Course";
 import { AddCourse } from "./admin/course/AddCourse";
 import { TakeCourse } from "./user/TakeCourse";
 import { AdminRoute } from "../common/AdminRoute";
+import { Home } from "./home/Home";
 export const Routes = () => {
   return (
     <Router>
@@ -17,6 +18,7 @@ export const Routes = () => {
         <Route exact path="/" component={Landing} />
         <LayoutWrapper>
           <Switch>
+            <PrivateRoute exact path="/Home" component={Home} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/course" component={Course} />
             <PrivateRoute path="/course/add-new" component={AddCourse} />
