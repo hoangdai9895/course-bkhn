@@ -85,7 +85,7 @@ export const Home = () => {
                 <h3>Course recomendation</h3>
                 <div className="slide-wrap">
                 {
-                !loading ? 
+                loading ? 
                 <div className="example">
                 <Spin size="large"/>
               </div>

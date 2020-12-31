@@ -12,6 +12,7 @@ import {
 } from "../../../redux/actions/question";
 import { AddNewQuestion } from "./AddNewQuestion";
 import { PageHeaderLayout } from "../../../common/PageHeaderLayout";
+import { Updatequestion } from "./Updatequestion";
 export const Question = () => {
 	const columns = [
 		{
@@ -39,7 +40,7 @@ export const Question = () => {
 			render: (text, record) => (
 				<div style={{ display: "flex" }}>
 					<div style={{ cursor: "pointer", marginRight: 10 }}>
-						<EditOutlined />
+						<EditOutlined onClick={()=>{setOpenUpdate(true); setUpdateId(record._id); console.log('22')}}/>
 					</div>
 					<div>
 						<Popconfirm
@@ -60,6 +61,8 @@ export const Question = () => {
 		(state) => state.question
 	);
 	const [visible, setvisible] = useState(false);
+	const [openUpdate, setOpenUpdate] = useState(false);
+	const [updateId, setUpdateId] = useState()
 
 	const dispatch = useDispatch();
 
@@ -97,6 +100,7 @@ export const Question = () => {
 
 			{/* add new modal */}
 			<AddNewQuestion visible={visible} setvisible={setvisible} />
+			<Updatequestion visible={openUpdate} setvisible={setOpenUpdate} id={updateId}/>
 		</Row>
 	);
 };

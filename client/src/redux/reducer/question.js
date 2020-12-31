@@ -5,6 +5,7 @@ import {
   QUESTION_ADD_NEW_FAILED,
   QUESTION_ADD_NEW,
   QUESTION_REMOVE,
+  QUESITON_UPDATE,
 } from "../actions/type";
 
 const initialState = {
@@ -24,6 +25,17 @@ export default function (state = initialState, action) {
         questions: action.payload,
         err: null,
       };
+    case QUESITON_UPDATE:
+   
+      return {
+        ...state, questions: state.questions.map(e=>{
+          if(e._id == action.payload._id){
+            return action.payload
+          } else {
+            return e
+          }
+        })
+      }
     case QUESTION_GET_ALL_FAILED:
       return {
         ...state,

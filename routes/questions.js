@@ -47,4 +47,26 @@ router.delete(
   }
 );
 
+router.post(
+  "/update",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    console.log(req.params._id);
+    Question.findByIdAndUpdate(req.body._id,
+    {  answers: req.body.answers,
+      question: req.body.question,
+      correctAnswer: req.body.correctAnswer,
+      category: req.body.category,
+      updated_at: Date.now()
+    } ,{new: true, useFindAndModify: true}).populate({ path: "category", model: "Category" })
+      .then((ques) => {
+        res.status(200).json({ques});
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  }
+);
+
 module.exports = router;

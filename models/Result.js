@@ -17,6 +17,10 @@ const resultSchema = new Schema({
   result: {
     type: String,
   },
+  createAt:{
+    type:Date,
+    default: Date.now()
+  }
 });
 
 module.exports = result = mongoose.model("Result", resultSchema);

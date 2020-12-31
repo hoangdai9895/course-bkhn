@@ -7,6 +7,8 @@ import {
   QUESTION_ADD_NEW,
   QUESTION_REMOVE,
   QUESTION_REMOVE_FAILED,
+  QUESITON_UPDATE_FAILED,
+  QUESITON_UPDATE,
 } from "./type";
 import { message } from "antd";
 
@@ -69,3 +71,24 @@ export const removeQuestion = (id) => (dispatch) => {
       });
     });
 };
+
+export const updateQuestion = (question) => dispatch => {
+  console.log(question)
+  axios
+    .post(`/api/question/update`, question)
+    .then((res) => {
+      message.success("Update succesfully!");
+      console.log(res)
+      dispatch({
+        type: QUESITON_UPDATE,
+        payload: res.data.ques,
+      });
+    })
+    .catch((err) => {
+      console.log(err)
+      dispatch({
+        type: QUESITON_UPDATE_FAILED,
+        payload: err,
+      });
+    });
+}

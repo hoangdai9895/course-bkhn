@@ -45,7 +45,8 @@ export const Course = () => {
       render: (text, record) => <span>{record.createdBy.name}</span>,
     },
     {
-      title: "Hành động",
+      // title: "Hành động",
+      title: "Action",
       dataIndex: "action",
       key: "action",
       render: (text, record) => {

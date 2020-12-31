@@ -27,4 +27,20 @@ router.post(
   }
 );
 
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    Category.deleteOne({ _id: req.params.id })
+      .then((ques) => {
+        res.status(200).json({ id: req.params.id });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  }
+);
+
+
 module.exports = router;

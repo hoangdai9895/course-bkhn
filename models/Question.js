@@ -22,6 +22,17 @@ const questionSchema = new Schema({
     type: Number,
     maxlength: 1,
   },
+  updated_at:{
+    type: Date
+  },
+  created_at:{
+    type: Date, 
+    default: Date.now()
+  },
+  updated_by:{
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  }
 });
 
 module.exports = question = mongoose.model("Question", questionSchema);
