@@ -4,8 +4,8 @@ export const menus = [
         link:"/home"
     },
     {
-        title: "Course",
-        link:"/course"
+        title: "Exam",
+        link:"/exam"
     },
     {
         title: "Report",

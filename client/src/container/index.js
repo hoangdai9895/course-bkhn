@@ -11,6 +11,8 @@ import { AddCourse } from "./admin/course/AddCourse";
 import { TakeCourse } from "./user/TakeCourse";
 import { AdminRoute } from "../common/AdminRoute";
 import { Home } from "./home/Home";
+import { AddExam } from "./admin/exam/AddExam";
+import { Exam } from "./admin/exam";
 export const Routes = () => {
   return (
     <Router>
@@ -23,6 +25,9 @@ export const Routes = () => {
             <PrivateRoute exact path="/course" component={Course} />
             <PrivateRoute path="/course/add-new" component={AddCourse} />
             <PrivateRoute path="/course/:id" component={TakeCourse} />
+            <PrivateRoute exact path="/exam" component={Exam} />
+            <PrivateRoute path="/exam/add-new" component={AddExam} />
+            <PrivateRoute path="/exam/:id" component={TakeCourse} />
             <AdminRoute exact path="/question" component={Question} />
             <PrivateRoute exact path="/report" component={Report} />
           </Switch>

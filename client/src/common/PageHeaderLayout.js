@@ -10,8 +10,11 @@ const content = (text, isAdmin) => (
   <>
     <Paragraph>{text}</Paragraph>
     <div>
-      <Button key="3" style={{ marginRight: 10 }}>
+      {/* <Button key="3" style={{ marginRight: 10 }}>
         <Link to="/course">Courses</Link>
+      </Button> */}
+      <Button key="3" style={{ marginRight: 10 }}>
+        <Link to="/exam">Exames</Link>
       </Button>
       {isAdmin ? (
         <Button key="2" style={{ marginRight: 10 }}>

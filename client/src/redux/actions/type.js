@@ -19,6 +19,20 @@ export const COURSE_ADD_FAILED = "COURSE_ADD_FAILED";
 export const COURSE_REMOVE = "COURSE_REMOVE";
 export const COURSE_REMOVE_FAILED = "COURSE_REMOVE_FAILED";
 
+// exam
+export const SET_EXAM_LOADING = "SET_EXAM_LOADING";
+export const EXAM_GET_ALL = "EXAM_GET_ALL";
+export const EXAM_GET_ALL_FAILED = "EXAM_GET_ALL_FAILED";
+
+export const EXAM_GET_BY_ID = "EXAM_GET_BY_ID";
+export const EXAM_GET_BY_ID_FAILED = "EXAM_GET_BY_ID_FAILED";
+
+export const EXAM_ADD = "EXAM_ADD";
+export const EXAM_ADD_FAILED = "EXAM_ADD_FAILED";
+
+export const EXAM_REMOVE = "EXAM_REMOVE";
+export const EXAM_REMOVE_FAILED = "EXAM_REMOVE_FAILED";
+
 // question
 export const SET_QUESTION_LOADING = "SET_QUESTION_LOADING";
 export const QUESTION_GET_ALL = "QUESTION_GET_ALL";

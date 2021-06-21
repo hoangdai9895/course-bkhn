@@ -4,6 +4,7 @@ import courseReducer from "./course";
 import questionReducer from "./question";
 import categoryReducer from "./category";
 import resultReducer from "./result";
+import examReducer from './exam'
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   question: questionReducer,
   category: categoryReducer,
   result: resultReducer,
+  exam:examReducer
 });

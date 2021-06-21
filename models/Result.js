@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const resultSchema = new Schema({
-  course: {
+  exam: {
     type: Schema.Types.ObjectId,
-    ref: "Course",
+    ref: "Exam",
   },
   user: {
     type: Schema.Types.ObjectId,
