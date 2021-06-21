@@ -58,7 +58,9 @@ export const AddNewQuestion = ({ visible, setvisible }) => {
     }
 
     let x = Object.keys(tempQues).filter((e) => {
-      if (/\d/.test(e)) return e;
+      // if (/\d/.test(e)) return e
+
+      return /\d/.test(e)
     });
 
     x.forEach((e, i) => {
@@ -91,6 +93,7 @@ export const AddNewQuestion = ({ visible, setvisible }) => {
 
   useEffect(() => {
     dispatch(getAllCategories());
+    // eslint-disable-next-line
   }, []);
 
   return (

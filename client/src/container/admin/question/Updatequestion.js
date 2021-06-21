@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Select, Input, Radio, message } from "antd";
+import { Modal, Select, Input, Radio } from "antd";
 import "../../../assets/styles/modal.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllQuestions, updateQuestion } from '../../../redux/actions/question'
+import { updateQuestion } from '../../../redux/actions/question'
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -76,14 +76,14 @@ export const Updatequestion = ({ visible, setvisible, id }) => {
 
     useEffect(()=>{
         console.log('3');
-        setQuestion(questions.find(e=>e._id == id))
-        setUpdateQues(questions.find(e=>e._id == id))
-    }, [visible,questions])
+        setQuestion(questions.find(e=>e._id === "" +id))
+        setUpdateQues(questions.find(e=>e._id === "" + id))
+    }, [visible,questions, id])
 
     return (
     <div>
         {
-            question ? <Modal
+            question && <Modal
             title="UPDATE QUESTION"
             visible={visible}
             onOk={() => {handleAddNewQuestion(); setQuestion(null); setvisible(false)}}
@@ -157,7 +157,7 @@ export const Updatequestion = ({ visible, setvisible, id }) => {
                 </Radio.Group>
               </div>
             </div>
-          </Modal> : "null"
+          </Modal> 
         }
      
     </div>

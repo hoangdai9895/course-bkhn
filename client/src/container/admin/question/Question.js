@@ -72,6 +72,7 @@ export const Question = () => {
 
 	useEffect(() => {
 		dispatch(getAllQuestions());
+		// eslint-disable-next-line
 	}, []);
 
 	return (

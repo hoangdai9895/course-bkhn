@@ -50,6 +50,7 @@ export const AddCourse = (props) => {
 
   useEffect(() => {
     dispatch(getAllQuestions());
+    // eslint-disable-next-line
   }, []);
 
   return (

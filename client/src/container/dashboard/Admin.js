@@ -12,6 +12,7 @@ export const Admin = () => {
 
   useEffect(() => {
     dispatch(getAllCourse());
+    // eslint-disable-next-line
   }, []);
 
   return (

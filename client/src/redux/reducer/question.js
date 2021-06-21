@@ -29,7 +29,7 @@ export default function (state = initialState, action) {
    
       return {
         ...state, questions: state.questions.map(e=>{
-          if(e._id == action.payload._id){
+          if(+e._id === +action.payload._id){
             return action.payload
           } else {
             return e

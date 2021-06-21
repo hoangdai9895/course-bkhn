@@ -30,7 +30,7 @@ export const LoginSceen = () => {
         role===2? history.push("/home"):  history.push("/dashboard");
       }, 1000);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, history, role]);
   return (
     <div className="login-main">
       <Col xl={16} className="login-form ">

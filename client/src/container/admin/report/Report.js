@@ -7,7 +7,7 @@ import { getResults } from "../../../redux/actions/result";
 import { Link } from "react-router-dom";
 
 export const Report = () => {
-  const { user } = useSelector((e) => e.auth);
+  // const { user } = useSelector((e) => e.auth);
   const { results, loadingResults } = useSelector((e) => e.result);
 
   const dispatch = useDispatch();
@@ -48,6 +48,7 @@ export const Report = () => {
 
   useEffect(() => {
     dispatch(getResults());
+     // eslint-disable-next-line
   }, []);
   return (
     <Row className="card-list" gutter={[0, 5]}>

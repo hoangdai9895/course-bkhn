@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Layout, Menu, Dropdown } from "antd";
 // import {
 // 	DesktopOutlined,
@@ -18,7 +18,7 @@ const { Header, Content, Footer } = Layout;
 export const LayoutWrapper = (props) => {
 	const dispatch = useDispatch();
 	const {
-		user: { username, role },
+		user: { username },
 	} = useSelector((state) => state.auth);
 	// const [collapsed, setcollapsed] = useState(false);
 	// const toggle = () => {
@@ -33,9 +33,9 @@ export const LayoutWrapper = (props) => {
 		</Menu>
 	);
 
-	useEffect(() => {
-		console.log(role);
-	}, [])
+	// useEffect(() => {
+	// 	console.log(role);
+	// }, [])
 		
 	return (
 		<Layout style={{ minHeight: "100vh" }} className="layout-main">
@@ -44,7 +44,7 @@ export const LayoutWrapper = (props) => {
 					className="site-layout-background"
 					style={{ padding: 0 }}>
 					<div className="main-header">
-						<img src={logo}/>
+						<img src={logo} alt=""/>
 						<ul>
 							{
 								menus.map((e, i)=> (
@@ -56,14 +56,15 @@ export const LayoutWrapper = (props) => {
 						</ul>
 					</div>
 					<Dropdown overlay={menu} className="header-user">
-						<a
+						<div
+							href="#"
 							className="ant-dropdown-link"
 							onClick={(e) => e.preventDefault()}>
-							<img src="https://img.icons8.com/color/25/000000/user-male.png" />{" "}
+							<img src="https://img.icons8.com/color/25/000000/user-male.png" alt="user"/>{" "}
 							<div style={{ marginLeft: "10px", color: "#000" }}>
 								Welcome {username}
 							</div>
-						</a>
+						</div>
 					</Dropdown>
 				</Header>
 				<div className="bg-search">

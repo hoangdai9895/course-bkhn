@@ -90,6 +90,7 @@ export const Course = () => {
   useEffect(() => {
     dispatch(getAllCourse());
     console.log(isAdmin)
+    // eslint-disable-next-line
   }, []);
 
   return (

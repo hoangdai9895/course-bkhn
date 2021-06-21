@@ -68,10 +68,10 @@ export const TakeCourse = () => {
     setresults(data);
     dispatch(createResult(data));
     setvisible(true);
-  }, []);
+  }, [dispatch, user.id]);
 
   const onChange = (e) => {
-    const { answers, correctAnswer } = course.questions[current];
+    // const { answers, correctAnswer } = course.questions[current];
     const value = e.target.value;
     let tempAns = [...answersList];
     tempAns[current] = value;
@@ -97,6 +97,7 @@ export const TakeCourse = () => {
 
   useEffect(() => {
     dispatch(getCourseById(id));
+     // eslint-disable-next-line
   }, []);
   return (
     <>

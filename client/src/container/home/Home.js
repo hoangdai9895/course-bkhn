@@ -60,6 +60,7 @@ export const Home = () => {
 
     useEffect(() => {
         dispatch(getAllCourse())
+        // eslint-disable-next-line
     }, [])
 
     return (
@@ -69,7 +70,7 @@ export const Home = () => {
                     {
                         items.map((e, i) => (
                             <div className="item" key={i}>
-                                <img src={e.src}></img>
+                                <img src={e.src} alt=""/>
                                 <p>{e.title}</p>
                                 <span>
                                     <b>{e.number}</b>
@@ -93,18 +94,18 @@ export const Home = () => {
                         {
                             courses.map((e, i) => (
                                 <div key={i} className="slide-item">
-                                    <img src={course_imgs[Math.floor(Math.random() * (3 - 0 + 1) ) + 0]}/>
+                                    <img src={course_imgs[Math.floor(Math.random() * (3 - 0 + 1) ) + 0]} alt=""/>
                                     <div className="info-course">
                                         <div className="title">
-                                            <p>{e.title}</p><img src={heart}/>
+                                            <p>{e.title}</p><img src={heart} alt=""/>
                                         </div>
                                         <div className="des">
                                             {e.des || ""}
                                         </div>
                                         <div className="route">
                                             <div className="react">
-                                                <img src={heart}/><span>325</span> 
-                                                <img src={users}/><span>10</span>
+                                                <img src={heart}  alt=""/><span>325</span> 
+                                                <img src={users}  alt=""/><span>10</span>
                                             </div>
                                             <div className="link">
                                                 <Link to={`course/${e._id}`}>Join now</Link>
