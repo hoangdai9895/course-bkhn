@@ -39,7 +39,7 @@ router.post("/login", (req, res) => {
 
 	User.findOne({ username }).then((user) => {
 		if (!user) {
-			return res.status(400).json({ errUser: "User not found!!!" });
+			return res.status(400).json({ err: "User not found!!!" });
 		}
 		bcrypt.compare(password, user.password).then((match) => {
 			if (match) {
@@ -59,9 +59,7 @@ router.post("/login", (req, res) => {
 					}
 				);
 			} else {
-				return res
-					.status(400)
-					.json({ errPassword: "Password incorrect" });
+				return res.status(400).json({ err: "Password incorrect" });
 			}
 		});
 	});
