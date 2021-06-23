@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 app.use("/api/user", user);
 app.use("/api/category", category);
 app.use("/api/question", question);
-// app.use("/api/course", course);
+app.use("/api/course", course);
 app.use("/api/exam", exam);
 app.use("/api/result", result);
 

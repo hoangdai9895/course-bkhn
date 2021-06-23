@@ -15,10 +15,10 @@ import * as moment from "moment";
 export const Exam = () => {
 	const columns = [
 		{
-			title: "ID",
+			title: "STT",
 			dataIndex: "Stt",
 			key: "stt",
-			render: (text, record) => <span>{record._id}</span>,
+			render: (text, record, index) => <span>{index + 1}</span>,
 		},
 		{
 			title: "Title",
@@ -77,7 +77,7 @@ export const Exam = () => {
 					);
 				return (
 					<div style={{ cursor: "pointer" }}>
-						<Link to={`exam/${record._id}`}>
+						<Link to={`exam/take/${record._id}`}>
 							<PlayCircleOutlined />
 						</Link>
 					</div>

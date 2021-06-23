@@ -67,6 +67,7 @@ const UpdateExam = () => {
 
 	useEffect(() => {
 		dispatch(getAllQuestions());
+		// eslint-disable-next-line
 	}, []);
 
 	return (

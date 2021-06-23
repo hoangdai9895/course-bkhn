@@ -6,15 +6,16 @@ import { Dashboard } from "./landing/Dashboard";
 import { PrivateRoute } from "../common/PrivateRoute";
 import { Question } from "./admin/question/Question";
 import { Report } from "./admin/report/Report";
-import { Course } from "./admin/course/Course";
-import { AddCourse } from "./admin/course/AddCourse";
-import { TakeCourse } from "./user/TakeCourse";
+// import { Course } from "./admin/course/Course";
+// import { AddCourse } from "./admin/course/AddCourse";
+// import { TakeCourse } from "./user/TakeCourse";
 import { AdminRoute } from "../common/AdminRoute";
 import { Home } from "./home/Home";
 import { AddExam } from "./admin/exam/AddExam";
 import { Exam } from "./admin/exam";
 import Category from "./admin/category";
 import UpdateExam from "./admin/exam/UpdateExam";
+import { TakeExam } from "./user/TakeExam";
 export const Routes = () => {
 	return (
 		<Router>
@@ -28,15 +29,15 @@ export const Routes = () => {
 							path="/dashboard"
 							component={Dashboard}
 						/>
-						{/* <PrivateRoute exact path="/course" component={Course} />
-						<PrivateRoute
+						{/* <PrivateRoute exact path="/course" component={Course} /> */}
+						{/* <PrivateRoute
 							path="/course/add-new"
 							component={AddCourse}
 						/> */}
-						<PrivateRoute
+						{/* <PrivateRoute
 							path="/course/:id"
 							component={TakeCourse}
-						/>
+						/> */}
 						<PrivateRoute exact path="/exam" component={Exam} />
 						<PrivateRoute
 							path="/exam/add-new"
@@ -44,7 +45,7 @@ export const Routes = () => {
 						/>
 						<PrivateRoute
 							path="/exam/take/:id"
-							component={TakeCourse}
+							component={TakeExam}
 						/>
 						<AdminRoute
 							exact

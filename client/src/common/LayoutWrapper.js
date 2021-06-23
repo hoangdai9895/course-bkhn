@@ -10,7 +10,7 @@ import { logoutUser } from "../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { menus } from "../constants/menus";
-import logo from '../assets/imgs/l.svg'
+import logo from "../assets/imgs/l.svg";
 
 const { Header, Content, Footer } = Layout;
 // const { SubMenu } = Menu;
@@ -36,31 +36,34 @@ export const LayoutWrapper = (props) => {
 	// useEffect(() => {
 	// 	console.log(role);
 	// }, [])
-		
+
 	return (
 		<Layout style={{ minHeight: "100vh" }} className="layout-main">
 			<Layout className="site-layout">
 				<Header
 					className="site-layout-background"
-					style={{ padding: 0 }}>
+					style={{ padding: 0 }}
+				>
 					<div className="main-header">
-						<img src={logo} alt=""/>
+						<img src={logo} alt="" />
 						<ul>
-							{
-								menus.map((e, i)=> (
-									<li key={i} >
-										<Link to={e.link} >{e.title}</Link>
-									</li>
-								))
-							}
+							{menus.map((e, i) => (
+								<li key={i}>
+									<Link to={e.link}>{e.title}</Link>
+								</li>
+							))}
 						</ul>
 					</div>
 					<Dropdown overlay={menu} className="header-user">
 						<div
 							href="#"
 							className="ant-dropdown-link"
-							onClick={(e) => e.preventDefault()}>
-							<img src="https://img.icons8.com/color/25/000000/user-male.png" alt="user"/>{" "}
+							onClick={(e) => e.preventDefault()}
+						>
+							<img
+								src="https://img.icons8.com/color/25/000000/user-male.png"
+								alt="user"
+							/>{" "}
 							<div style={{ marginLeft: "10px", color: "#000" }}>
 								Welcome {username}
 							</div>
@@ -68,14 +71,14 @@ export const LayoutWrapper = (props) => {
 					</Dropdown>
 				</Header>
 				<div className="bg-search">
-						<div className="container">
-							<div className="text">Search for anything</div>
-							<div className="input-wrap">
+					<div className="container">
+						<div className="text">Search for anything</div>
+						{/* <div className="input-wrap">
 								<input placeholder="Course, Document,..."/>
-							</div>
-						</div>
+							</div> */}
+					</div>
 				</div>
-				<hr/>
+				<hr />
 				<Content style={{ margin: "0 10px" }}>{props.children}</Content>
 
 				<Footer style={{ textAlign: "center" }}>
