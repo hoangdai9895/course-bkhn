@@ -48,7 +48,8 @@ export const login = (userdata) => (dispatch) => {
 			dispatch(setCurrentUser(decoded));
 		})
 		.catch((err) => {
-			message.error(err.response.data.errPassword);
+			console.log(err.response);
+			message.error(err.response.data.err);
 			dispatch({
 				type: LOGIN_FAILED,
 				payload: err.response.data.errUser,

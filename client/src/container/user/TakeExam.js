@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCourseById } from "../../redux/actions/course";
 import { useParams } from "react-router-dom";
 import { Steps, Button, Divider, Radio } from "antd";
-import "../../assets/styles/take-course.scss";
+import "../../assets/styles/take-exam.scss";
 
 import { ResultModal } from "./ResultModal";
 import { createResult } from "../../redux/actions/result";
 import { HeaderCourse } from "./HeaderCourse";
 import { CourseSkeleton } from "./CourseSkeleton";
+import { getExamById } from "../../redux/actions/exam";
 const { Step } = Steps;
 
 const renderContent = (answers, onChange, title, current, answersList) => {
@@ -29,7 +29,7 @@ const renderContent = (answers, onChange, title, current, answersList) => {
 	);
 };
 
-export const TakeCourse = () => {
+export const TakeExam = () => {
 	const [current, setcurrent] = useState(0);
 	const [start, setStart] = useState(false);
 	const [answersList, setanswersList] = useState([]);
@@ -39,7 +39,7 @@ export const TakeCourse = () => {
 	// const [datato, setData]
 	const { id } = useParams();
 
-	const { course } = useSelector((state) => state.course);
+	const { exam } = useSelector(({ exam }) => exam);
 	const { user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
@@ -52,12 +52,12 @@ export const TakeCourse = () => {
 	};
 
 	const done = useCallback(
-		(course, answersList) => {
+		(exam, answersList) => {
 			let tempResults = [];
 			let data = {};
 			let trueAnswer = 0;
 
-			course.questions.forEach((e, i) => {
+			exam.questions.forEach((e, i) => {
 				let item = {
 					isTrue: false,
 					questionId: e._id,
@@ -70,7 +70,7 @@ export const TakeCourse = () => {
 				tempResults = [...tempResults, item];
 			});
 
-			data.course = course._id;
+			data.exam = exam._id;
 			data.user = user.id;
 			data.result = `${trueAnswer}/${tempResults.length}`;
 			setresults(data);
@@ -81,7 +81,7 @@ export const TakeCourse = () => {
 	);
 
 	const onChange = (e) => {
-		// const { answers, correctAnswer } = course.questions[current];
+		// const { answers, correctAnswer } = exam.questions[current];
 		const value = e.target.value;
 		let tempAns = [...answersList];
 		tempAns[current] = value;
@@ -89,9 +89,9 @@ export const TakeCourse = () => {
 		setanswersList(tempAns);
 	};
 
-	const generateStep = (course) => {
+	const generateStep = (exam) => {
 		let steps = [];
-		course.questions.forEach((e, i) => {
+		exam.questions.forEach((e, i) => {
 			steps[i] = {
 				content: renderContent(
 					e.answers,
@@ -106,7 +106,7 @@ export const TakeCourse = () => {
 	};
 
 	useEffect(() => {
-		dispatch(getCourseById(id));
+		dispatch(getExamById(id));
 		// eslint-disable-next-line
 	}, []);
 	return (
@@ -121,21 +121,21 @@ export const TakeCourse = () => {
 				{start ? (
 					<>
 						<Divider />
-						<div className="take-course">
+						<div className="take-exam">
 							<Steps current={current}>
-								{generateStep(course).map((item, i) => (
+								{generateStep(exam).map((item, i) => (
 									<Step key={i} />
 								))}
 							</Steps>
 
 							{/* step content ============== */}
 							<div className="steps-content">
-								{generateStep(course)[current].content}
+								{generateStep(exam)[current].content}
 							</div>
 
 							{/* step actions ============= */}
 							<div className="steps-action">
-								{current < generateStep(course).length - 1 && (
+								{current < generateStep(exam).length - 1 && (
 									<Button
 										type="primary"
 										onClick={() => next()}
@@ -143,13 +143,12 @@ export const TakeCourse = () => {
 										Next
 									</Button>
 								)}
-								{current ===
-									generateStep(course).length - 1 && (
+								{current === generateStep(exam).length - 1 && (
 									<Button
 										type="primary"
 										onClick={() => {
 											setDone(true);
-											done(course, answersList);
+											done(exam, answersList);
 										}}
 									>
 										Done
@@ -167,7 +166,7 @@ export const TakeCourse = () => {
 							<ResultModal
 								visible={visible}
 								resultsdata={resultsdata}
-								course={course}
+								exam={exam}
 							/>
 						</div>
 					</>

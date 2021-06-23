@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Popconfirm, Table, Button, Col, Row } from "antd";
+import { Popconfirm, Table, Button, Col, Row, Pagination, Divider } from "antd";
 import {
 	DeleteOutlined,
 	EditOutlined,
@@ -13,6 +13,11 @@ import {
 import { AddNewQuestion } from "./AddNewQuestion";
 import { PageHeaderLayout } from "../../../common/PageHeaderLayout";
 import { Updatequestion } from "./Updatequestion";
+import querystring from "query-string";
+import { useHistory, useLocation } from "react-router-dom";
+
+import { buildApiUrl } from "../../../utils/buildUrl";
+
 export const Question = () => {
 	const columns = [
 		{
@@ -30,7 +35,7 @@ export const Question = () => {
 			title: "Category",
 			dataIndex: "length",
 			key: "length",
-			render: (text, record) => <span>{record.category.name}</span>,
+			render: (text, record) => <span>{record.category?.name}</span>,
 		},
 		{
 			// title: "Hành động",
@@ -40,7 +45,13 @@ export const Question = () => {
 			render: (text, record) => (
 				<div style={{ display: "flex" }}>
 					<div style={{ cursor: "pointer", marginRight: 10 }}>
-						<EditOutlined onClick={()=>{setOpenUpdate(true); setUpdateId(record._id); console.log('22')}}/>
+						<EditOutlined
+							onClick={() => {
+								setOpenUpdate(true);
+								setUpdateId(record._id);
+								console.log("22");
+							}}
+						/>
 					</div>
 					<div>
 						<Popconfirm
@@ -48,7 +59,8 @@ export const Question = () => {
 							title={"Bạn chắc chắn muốn xóa câu hỏi này không ?"}
 							onConfirm={() => confirm(record._id)}
 							okText="Có"
-							cancelText="Không">
+							cancelText="Không"
+						>
 							<DeleteOutlined />
 						</Popconfirm>
 					</div>
@@ -57,23 +69,37 @@ export const Question = () => {
 		},
 	];
 
-	const { loadingQuestions, questions } = useSelector(
+	const { loadingQuestions, questions, total } = useSelector(
 		(state) => state.question
 	);
 	const [visible, setvisible] = useState(false);
 	const [openUpdate, setOpenUpdate] = useState(false);
-	const [updateId, setUpdateId] = useState()
+	const [updateId, setUpdateId] = useState();
+	const [page, setPage] = useState(1);
 
 	const dispatch = useDispatch();
+	const history = useHistory();
+	const location = useLocation();
 
 	const confirm = (id) => {
 		dispatch(removeQuestion(id));
 	};
 
+	const handleSizeChange = (page) => {
+		const params = {
+			page,
+		};
+		history.push(`${location.pathname}${buildApiUrl(params)}`);
+	};
+
 	useEffect(() => {
-		dispatch(getAllQuestions());
-		// eslint-disable-next-line
-	}, []);
+		const tmpPage = querystring.parse(location.search).page || 1;
+		const payload = {
+			page: tmpPage,
+		};
+		dispatch(getAllQuestions(payload));
+		setPage(tmpPage);
+	}, [location, dispatch]);
 
 	return (
 		<Row className="card-list" gutter={[0, 5]}>
@@ -88,7 +114,8 @@ export const Question = () => {
 				<Button
 					type="dashed"
 					style={{ width: "100%", margin: "10px 0 10px 0" }}
-					onClick={() => setvisible(true)}>
+					onClick={() => setvisible(true)}
+				>
 					<PlusCircleOutlined /> Add new question
 				</Button>
 				<Table
@@ -96,12 +123,24 @@ export const Question = () => {
 					loading={loadingQuestions}
 					dataSource={questions}
 					rowKey={(record) => record._id}
+					pagination={false}
+				/>
+				<Divider />
+				<Pagination
+					current={+page || 1}
+					total={total}
+					onChange={handleSizeChange}
+					onShowSizeChange={handleSizeChange}
 				/>
 			</Col>
 
 			{/* add new modal */}
 			<AddNewQuestion visible={visible} setvisible={setvisible} />
-			<Updatequestion visible={openUpdate} setvisible={setOpenUpdate} id={updateId}/>
+			<Updatequestion
+				visible={openUpdate}
+				setvisible={setOpenUpdate}
+				id={updateId}
+			/>
 		</Row>
 	);
 };
