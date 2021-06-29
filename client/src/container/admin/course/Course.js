@@ -89,7 +89,7 @@ export const Course = () => {
 
   useEffect(() => {
     dispatch(getAllCourse());
-    console.log(isAdmin)
+    console.log(isAdmin);
     // eslint-disable-next-line
   }, []);
 
@@ -98,22 +98,22 @@ export const Course = () => {
       <Col xl={24}>
         <PageHeaderLayout
           title="Course"
-          subtitle="Welcome"
+          subtitle="Xin chào"
           text="Course list, chose one couse and complete or can create new one"
         />
       </Col>
       <Col xl={24}>
-        {
-          isAdmin ? (<Link to="/course/add-new">
-          <Button
-            type="dashed"
-            style={{ width: "100%", margin: "10px 0 10px 0" }}
-          >
-            <PlusCircleOutlined /> Add new course
-          </Button>
-        </Link>) :null
-        }
-        
+        {isAdmin ? (
+          <Link to="/course/add-new">
+            <Button
+              type="dashed"
+              style={{ width: "100%", margin: "10px 0 10px 0" }}
+            >
+              <PlusCircleOutlined /> Add new course
+            </Button>
+          </Link>
+        ) : null}
+
         <Table
           columns={columns}
           loading={loading}

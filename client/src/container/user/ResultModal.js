@@ -19,8 +19,8 @@ export const ResultModal = memo(({ visible, resultsdata, exam }) => {
 		<Modal visible={visible} footer={null}>
 			<Result
 				status="success"
-				title="Successfully Finished Course"
-				subTitle={`Course :${exam?.title},  Result: ${resultsdata?.result}`}
+				title="Successfully Finished Exam"
+				subTitle={`Exam :${exam?.title},  Result: ${resultsdata?.result}`}
 				extra={<RenderBtn />}
 			/>
 		</Modal>

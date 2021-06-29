@@ -29,7 +29,6 @@ const UserSchema = new Schema({
     type: Number,
     default: 2,
   },
-  cart: [],
 });
 
 module.exports = User = mongoose.model("User", UserSchema);

@@ -14,7 +14,7 @@ export const Dashboard = () => {
       <Col xl={24}>
         <PageHeaderLayout
           title="Dashboard"
-          subtitle="Welcome"
+          subtitle="Xin chào"
           text="Here is the main page"
         />
       </Col>

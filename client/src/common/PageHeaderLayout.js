@@ -1,67 +1,84 @@
 import React from "react";
-import { PageHeader, Button, Typography, Row } from "antd";
+import { PageHeader, Typography, Row } from "antd";
 import "../assets/styles/pageheader.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const { Paragraph } = Typography;
 
-const content = (text, isAdmin) => (
-	<>
-		<Paragraph>{text}</Paragraph>
-		<div>
-			{/* <Button key="3" style={{ marginRight: 10 }}>
-        <Link to="/course">Courses</Link>
-      </Button> */}
-			<Button key="3" style={{ marginRight: 10 }}>
-				<Link to="/exam">Exams</Link>
-			</Button>
-			{isAdmin && (
-				<>
-					<Button key="2" style={{ marginRight: 10 }}>
-						<Link to="/question">Questions</Link>
-					</Button>
-					<Button key="4" style={{ marginRight: 10 }}>
-						<Link to="/category">Category</Link>
-					</Button>
-				</>
-			)}
+const content = (text, isAdmin, isTeacher) => (
+  <>
+    <Paragraph>{text}</Paragraph>
+    <div>
+      <NavLink to="/exam" className="ant-btn" style={{ marginRight: 10 }}>
+        Bài thi
+      </NavLink>
 
-			<Button key="1" style={{ marginRight: 10 }}>
-				<Link to="/report">Reports</Link>
-			</Button>
-		</div>
-	</>
+      {(isAdmin || isTeacher) && (
+        <>
+          <NavLink
+            to="/question"
+            className="ant-btn"
+            style={{ marginRight: 10 }}
+          >
+            Câu hỏi
+          </NavLink>
+          <NavLink
+            to="/category"
+            className="ant-btn"
+            style={{ marginRight: 10 }}
+          >
+            Danh mục câu hỏi
+          </NavLink>
+          {/* <NavLink to="/class" className="ant-btn" style={{ marginRight: 10 }}>
+            Lớp
+          </NavLink> */}
+        </>
+      )}
+      {isAdmin && (
+        <NavLink to="/users" className="ant-btn" style={{ marginRight: 10 }}>
+          {/* Reports */}
+          Thành viên
+        </NavLink>
+      )}
+
+      <NavLink to="/report" className="ant-btn" style={{ marginRight: 10 }}>
+        {/* Reports */}
+        Kết quả
+      </NavLink>
+    </div>
+  </>
 );
 
 const Content = ({ children, extraContent }) => {
-	return (
-		<Row>
-			<div style={{ flex: 1 }}>{children}</div>
-			<div className="image">{extraContent}</div>
-		</Row>
-	);
+  return (
+    <Row>
+      <div style={{ flex: 1 }}>{children}</div>
+      <div className="image">{extraContent}</div>
+    </Row>
+  );
 };
 export const PageHeaderLayout = ({ title, subtitle, text }) => {
-	const { isAdmin } = useSelector((_) => _.auth);
-	return (
-		<PageHeader
-			title={title}
-			className="site-page-header"
-			subTitle={subtitle}
-			ghost={false}
-		>
-			<Content
-				extraContent={
-					<img
-						src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"
-						alt="content"
-						width="100px"
-					/>
-				}
-			>
-				{content(text, isAdmin)}
-			</Content>
-		</PageHeader>
-	);
+  const { isAdmin, isTeacher } = useSelector(({ auth }) => auth);
+
+  return (
+    <PageHeader
+      title={title}
+      className="site-page-header"
+      subTitle={subtitle}
+      ghost={false}
+    >
+      <Content
+        extraContent={
+          <img
+            src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"
+            alt="content"
+            width="100px"
+          />
+        }
+      >
+        {content(text, isAdmin, isTeacher)}
+      </Content>
+    </PageHeader>
+  );
 };

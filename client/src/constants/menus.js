@@ -1,22 +1,22 @@
 export const menus = [
-    {
-        title: "Home",
-        link:"/home"
-    },
-    {
-        title: "Exam",
-        link:"/exam"
-    },
-    {
-        title: "Report",
-        link:"/report"
-    },
-    {
-        title: "About us",
-        link:"/about-us"
-    },
-    {
-        title: "Contact",
-        link:"/contact"
-    },
-]
+  {
+    title: "Trang chủ",
+    link: "/home",
+  },
+  {
+    title: "Bài thi",
+    link: "/exam",
+  },
+  {
+    title: "Kết quả",
+    link: "/report",
+  },
+  // {
+  //     title: "About us",
+  //     link:"/about-us"
+  // },
+  // {
+  //     title: "Contact",
+  //     link:"/contact"
+  // },
+];

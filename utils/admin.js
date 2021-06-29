@@ -1,7 +1,6 @@
 let admin = (req, res, next) => {
-  if (req.user.role !== 0) {
+  if (![0, 1].includes(req.user.role))
     return res.json({ err: "Your are not allowed !!!" });
-  }
   next();
 };
 
