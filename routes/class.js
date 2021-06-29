@@ -41,13 +41,14 @@ router.get("/:id", async (req, res) => {
 //UPDATE
 router.put(
   "/update",
-  //   passport.authenticate("jwt", { session: false }),
-  //   admin,
+  passport.authenticate("jwt", { session: false }),
+  admin,
   (req, res) => {
     Class.findByIdAndUpdate(
       req.body._id,
       {
         name: req.body.name,
+        teacher: req.body.teacher,
         updated_at: Date.now(),
       },
       { new: true, useFindAndModify: false }

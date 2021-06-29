@@ -28,12 +28,12 @@ const Category = () => {
       render: (text, record, index) => <span>{index + 1}</span>,
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Create at",
+      title: "Ngày tạo",
       dataIndex: "create",
       key: "create",
       render: (text, record) => (
@@ -43,8 +43,8 @@ const Category = () => {
       ),
     },
     {
-      // title: "Hành động",
-      title: "Action",
+      title: "Hành động",
+      // title: "Action",
       dataIndex: "action",
       key: "action",
       render: (text, record) => (
@@ -61,7 +61,7 @@ const Category = () => {
           <div>
             <Popconfirm
               placement="topLeft"
-              title={"Bạn chắc chắn muốn xóa câu danh muc này không ?"}
+              title={"Bạn chắc chắn muốn xóa câu danh mục này không ?"}
               onConfirm={() => confirm(record._id)}
               okText="Có"
               cancelText="Không"
