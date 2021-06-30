@@ -2,6 +2,7 @@ import {
   ADD_CLASS,
   DELETE_CLASS,
   GET_CLASS,
+  GET_CLASS_BY_ID,
   GET_CLASS_FAILED,
   SET_CLASS_LOADING,
 } from "../actions/type";
@@ -12,6 +13,7 @@ const initialState = {
   err: null,
   total: 0,
   deleteStatus: false,
+  currentClass: {},
 };
 
 export default function (state = initialState, action) {
@@ -42,6 +44,9 @@ export default function (state = initialState, action) {
 
     case DELETE_CLASS:
       return { ...state, deleteStatus: true };
+
+    case GET_CLASS_BY_ID:
+      return { ...state, currentClass: action.payload.data[0] };
 
     default:
       return state;

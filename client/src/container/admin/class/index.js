@@ -57,6 +57,7 @@ const ClassManagement = () => {
       key: "action",
       render: (text, record) => (
         <div style={{ display: "flex" }}>
+          {console.log(record)}
           <div style={{ cursor: "pointer", marginRight: 10 }}>
             <Link to={`class/update/${record?._id}`}>
               <EditOutlined />

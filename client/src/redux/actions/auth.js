@@ -11,6 +11,8 @@ import {
   UPDATE_USER,
   DELETE_USER,
   DELETE_USER_FAILED,
+  GET_ALL_STUDENT,
+  GET_ALL_STUDENT_FAILED,
 } from "./type";
 import axios from "axios";
 import setAuthToken from "../../common/setAuthToken";
@@ -121,6 +123,24 @@ export const getAllUsers = (payload) => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: GET_ALL_USER_FALIED,
+        payload: err,
+      });
+    });
+};
+
+export const getAllStudent = (payload) => (dispatch) => {
+  dispatch(setUserLoading());
+  axios
+    .get(`/api/user?role=2`)
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_STUDENT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_STUDENT_FAILED,
         payload: err,
       });
     });

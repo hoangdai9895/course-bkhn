@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Form, Input, Button, PageHeader, Divider, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../../redux/actions/auth";
+import { getAllStudent, getAllUsers } from "../../../redux/actions/auth";
 import { createClass } from "../../../redux/actions/class";
 import { getAllExam } from "../../../redux/actions/exam";
 
@@ -19,7 +19,7 @@ const AddClass = () => {
   /* eslint-enable no-template-curly-in-string */
 
   const dispatch = useDispatch();
-  const { users, loadingUser } = useSelector(({ auth }) => auth);
+  const { users, loadingUser, students } = useSelector(({ auth }) => auth);
   const { exams, loadingCourse } = useSelector(({ exam }) => exam);
 
   const onFinish = (values) => {
@@ -31,6 +31,7 @@ const AddClass = () => {
   useEffect(() => {
     dispatch(getAllUsers({ role: 1 }));
     dispatch(getAllExam());
+    dispatch(getAllStudent());
     // eslint-disable-next-line
   }, []);
 
@@ -64,6 +65,20 @@ const AddClass = () => {
                 <Option value={e?._id} key={e._id}>
                   {e?.name}
                 </Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="students" label="Học sinh">
+            <Select
+              mode="multiple"
+              allowClear
+              style={{ width: "100%" }}
+              placeholder="Please select"
+              // onChange={handleChange}
+            >
+              {students.map((e) => (
+                <Option key={e._id}>{e.name}</Option>
               ))}
             </Select>
           </Form.Item>

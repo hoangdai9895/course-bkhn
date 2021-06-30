@@ -17,6 +17,10 @@ router.get("/", async (req, res) => {
       path: "exam",
       model: "Exam",
     })
+    .populate({
+      path: "students",
+      model: "User",
+    })
     .limit(10)
     .skip((page ? page - 1 : 0) * 10)
     .then((category) => res.status(200).json({ data: category, total: count }))
@@ -32,6 +36,14 @@ router.get("/:id", async (req, res) => {
   Class.find({ _id: id })
     .populate({
       path: "teacher",
+      model: "User",
+    })
+    .populate({
+      path: "exam",
+      model: "Exam",
+    })
+    .populate({
+      path: "students",
       model: "User",
     })
     .limit(10)
@@ -54,6 +66,7 @@ router.put(
         name: req.body.name,
         teacher: req.body.teacher,
         exam: req.body.exam,
+        students: req.body.students,
         updated_at: Date.now(),
       },
       { new: true, useFindAndModify: false }

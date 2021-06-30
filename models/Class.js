@@ -16,6 +16,12 @@ const classSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Exam",
   },
+  students: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   updated_at: {
     type: Date,
   },

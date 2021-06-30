@@ -7,6 +7,8 @@ import {
   DELETE_CLASS,
   DELETE_CLASS_SUCCESS,
   GET_CLASS,
+  GET_CLASS_BY_ID,
+  GET_CLASS_BY_ID_FAILED,
   GET_CLASS_FAILED,
   SET_CLASS_LOADING,
   UPDATE_CLASS,
@@ -31,6 +33,25 @@ export const getAllClass = (payload) => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: GET_CLASS_FAILED,
+        payload: err,
+      });
+    });
+};
+
+// GET ID
+export const getClassById = (id) => (dispatch) => {
+  dispatch(setClassLoading());
+  axios
+    .get(`/api/class/${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_CLASS_BY_ID,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CLASS_BY_ID_FAILED,
         payload: err,
       });
     });

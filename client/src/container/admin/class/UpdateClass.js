@@ -9,9 +9,13 @@ import {
   Skeleton,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../../redux/actions/auth";
+import { getAllStudent, getAllUsers } from "../../../redux/actions/auth";
 import { useParams } from "react-router-dom";
-import { getAllClass, updateClass } from "../../../redux/actions/class";
+import {
+  getAllClass,
+  getClassById,
+  updateClass,
+} from "../../../redux/actions/class";
 import { getAllExam } from "../../../redux/actions/exam";
 
 const { Option } = Select;
@@ -30,10 +34,11 @@ const UpdateClass = () => {
 
   const dispatch = useDispatch();
   const params = useParams();
-  const [currentClass, setCurrentClass] = useState(null);
-  const { users, loadingUser } = useSelector(({ auth }) => auth);
-  const { exams, loadingCourse } = useSelector(({ exam }) => exam);
-  const { classes, loadingClass } = useSelector((state) => state.class);
+  const { users, loadingUser, students } = useSelector(({ auth }) => auth);
+  const { exams } = useSelector(({ exam }) => exam);
+  const { classes, loadingClass, currentClass } = useSelector(
+    (state) => state.class
+  );
 
   const onFinish = (values) => {
     if (!values.teacher) values.teacher = users[0]._id || null;
@@ -47,12 +52,14 @@ const UpdateClass = () => {
     dispatch(getAllUsers({ role: 1 }));
     dispatch(getAllClass());
     dispatch(getAllExam());
+    dispatch(getAllStudent());
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    params?.id && setCurrentClass(classes.find((e) => e._id === params.id));
-  }, [params, classes]);
+    // params?.id && setCurrentClass(classes.find((e) => e._id === params.id));
+    params?.id && dispatch(getClassById(params.id));
+  }, [params, classes, dispatch]);
 
   return (
     <>
@@ -64,7 +71,7 @@ const UpdateClass = () => {
       />
       <div style={{ background: "#fff", padding: "0 20px 20px 20px" }}>
         <Divider dashed style={{ marginTop: 0 }} />
-        {currentClass ? (
+        {Object.keys(currentClass).length > 0 ? (
           <Form
             {...layout}
             //   form={ form}
@@ -75,6 +82,7 @@ const UpdateClass = () => {
               name: currentClass?.name,
               teacher: currentClass?.teacher._id,
               exam: currentClass?.exam?._id,
+              students: currentClass?.students?.map((e) => e._id),
             }}
           >
             <Form.Item name="name" label="Tên lớp" rules={[{ required: true }]}>
@@ -92,7 +100,7 @@ const UpdateClass = () => {
             </Form.Item>
 
             <Form.Item name="exam" label="Bài thi trắc nghiệm">
-              <Select style={{ width: "100%" }} loading={loadingCourse}>
+              <Select style={{ width: "100%" }} loading={loadingClass}>
                 {exams.map((e) => (
                   <Option value={e?._id} key={e._id}>
                     {e?.title}
@@ -100,6 +108,21 @@ const UpdateClass = () => {
                 ))}
               </Select>
             </Form.Item>
+
+            {students && (
+              <Form.Item name="students" label="Học sinh">
+                <Select
+                  mode="multiple"
+                  allowClear
+                  style={{ width: "100%" }}
+                  placeholder="Please select"
+                >
+                  {students.map((e) => (
+                    <Option key={e._id}>{e.name}</Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            )}
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
               <Button type="primary" htmlType="submit">
