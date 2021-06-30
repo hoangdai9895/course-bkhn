@@ -12,6 +12,10 @@ const classSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  exam: {
+    type: Schema.Types.ObjectId,
+    ref: "Exam",
+  },
   updated_at: {
     type: Date,
   },

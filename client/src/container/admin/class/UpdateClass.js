@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../redux/actions/auth";
 import { useParams } from "react-router-dom";
 import { getAllClass, updateClass } from "../../../redux/actions/class";
+import { getAllExam } from "../../../redux/actions/exam";
 
 const { Option } = Select;
 
@@ -31,10 +32,12 @@ const UpdateClass = () => {
   const params = useParams();
   const [currentClass, setCurrentClass] = useState(null);
   const { users, loadingUser } = useSelector(({ auth }) => auth);
+  const { exams, loadingCourse } = useSelector(({ exam }) => exam);
   const { classes, loadingClass } = useSelector((state) => state.class);
 
   const onFinish = (values) => {
     if (!values.teacher) values.teacher = users[0]._id || null;
+    if (!values.exam) values.exam = exams[0]._id || null;
     values._id = currentClass?._id;
     console.log(values);
     dispatch(updateClass(values));
@@ -43,6 +46,7 @@ const UpdateClass = () => {
   useEffect(() => {
     dispatch(getAllUsers({ role: 1 }));
     dispatch(getAllClass());
+    dispatch(getAllExam());
     // eslint-disable-next-line
   }, []);
 
@@ -50,7 +54,6 @@ const UpdateClass = () => {
     params?.id && setCurrentClass(classes.find((e) => e._id === params.id));
   }, [params, classes]);
 
-  console.log(currentClass);
   return (
     <>
       <PageHeader
@@ -71,6 +74,7 @@ const UpdateClass = () => {
             initialValues={{
               name: currentClass?.name,
               teacher: currentClass?.teacher._id,
+              exam: currentClass?.exam?._id,
             }}
           >
             <Form.Item name="name" label="Tên lớp" rules={[{ required: true }]}>
@@ -82,6 +86,16 @@ const UpdateClass = () => {
                 {users.map((e) => (
                   <Option value={e?._id} key={e._id}>
                     {e?.name}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Form.Item name="exam" label="Bài thi trắc nghiệm">
+              <Select style={{ width: "100%" }} loading={loadingCourse}>
+                {exams.map((e) => (
+                  <Option value={e?._id} key={e._id}>
+                    {e?.title}
                   </Option>
                 ))}
               </Select>

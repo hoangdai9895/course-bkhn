@@ -3,6 +3,7 @@ import { Form, Input, Button, PageHeader, Divider, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../redux/actions/auth";
 import { createClass } from "../../../redux/actions/class";
+import { getAllExam } from "../../../redux/actions/exam";
 
 const { Option } = Select;
 const layout = {
@@ -19,6 +20,7 @@ const AddClass = () => {
 
   const dispatch = useDispatch();
   const { users, loadingUser } = useSelector(({ auth }) => auth);
+  const { exams, loadingCourse } = useSelector(({ exam }) => exam);
 
   const onFinish = (values) => {
     console.log(values);
@@ -28,6 +30,7 @@ const AddClass = () => {
 
   useEffect(() => {
     dispatch(getAllUsers({ role: 1 }));
+    dispatch(getAllExam());
     // eslint-disable-next-line
   }, []);
 
@@ -60,6 +63,16 @@ const AddClass = () => {
               {users.map((e) => (
                 <Option value={e?._id} key={e._id}>
                   {e?.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="exam" label="Bài thi trắc nghiệm">
+            <Select style={{ width: "100%" }} loading={loadingCourse}>
+              {exams.map((e) => (
+                <Option value={e?._id} key={e._id}>
+                  {e?.title}
                 </Option>
               ))}
             </Select>

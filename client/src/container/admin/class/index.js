@@ -33,6 +33,14 @@ const ClassManagement = () => {
       render: (teacher) => <span>{teacher?.name}</span>,
     },
     {
+      title: "Bài thi",
+      dataIndex: "exam",
+      key: "exam",
+      render: (exam) => (
+        <Link to={`exam/edit/${exam?._id}`}>{exam?.title}</Link>
+      ),
+    },
+    {
       title: "Ngày tạo",
       dataIndex: "create",
       key: "create",

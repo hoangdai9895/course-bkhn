@@ -40,7 +40,7 @@ const UpdateExam = () => {
       ...examUpdate,
       questions: selectedAnswer,
     };
-    console.log(data);
+    // console.log(data);
     if (data.title === "") {
       message.error("Không được để trống tên bộ câu hỏi");
     } else if (data.questions.length === 0) {
@@ -60,7 +60,7 @@ const UpdateExam = () => {
   }, [exam]);
 
   useEffect(() => {
-    console.log(params);
+    // console.log(params);
     if (params?.id) dispatch(getExamById(params.id));
     // eslint-disable-next-line
   }, [params]);
@@ -167,9 +167,9 @@ const UpdateExam = () => {
                     </div>
                   )}
                 >
-                  {console.log(
+                  {/* {console.log(
                     questions.filter((o) => !selectedAnswer.includes(o))
-                  )}
+                  )} */}
                   {questions
                     .filter((o) => !selectedAnswer.includes(o))
                     ?.map((e) => (
