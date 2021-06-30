@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Form,
   Input,
@@ -10,13 +10,14 @@ import {
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllStudent, getAllUsers } from "../../../redux/actions/auth";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   getAllClass,
   getClassById,
   updateClass,
 } from "../../../redux/actions/class";
 import { getAllExam } from "../../../redux/actions/exam";
+import querystring from "query-string";
 
 const { Option } = Select;
 
@@ -34,11 +35,13 @@ const UpdateClass = () => {
 
   const dispatch = useDispatch();
   const params = useParams();
+  const location = useLocation();
   const { users, loadingUser, students } = useSelector(({ auth }) => auth);
   const { exams } = useSelector(({ exam }) => exam);
-  const { classes, loadingClass, currentClass } = useSelector(
+  const { classes, loadingClass, currentClass, loadingClassId } = useSelector(
     (state) => state.class
   );
+  console.log(currentClass);
 
   const onFinish = (values) => {
     if (!values.teacher) values.teacher = users[0]._id || null;
@@ -57,6 +60,7 @@ const UpdateClass = () => {
   }, []);
 
   useEffect(() => {
+    // form;
     // params?.id && setCurrentClass(classes.find((e) => e._id === params.id));
     params?.id && dispatch(getClassById(params.id));
   }, [params, classes, dispatch]);
@@ -71,20 +75,22 @@ const UpdateClass = () => {
       />
       <div style={{ background: "#fff", padding: "0 20px 20px 20px" }}>
         <Divider dashed style={{ marginTop: 0 }} />
-        {Object.keys(currentClass).length > 0 ? (
+        {!loadingClassId ? (
           <Form
             {...layout}
             //   form={ form}
             name="nest-messages"
             validateMessages={validateMessages}
             onFinish={onFinish}
+            key={querystring.parse(location.search).page}
             initialValues={{
               name: currentClass?.name,
-              teacher: currentClass?.teacher._id,
+              teacher: currentClass?.teacher?._id,
               exam: currentClass?.exam?._id,
               students: currentClass?.students?.map((e) => e._id),
             }}
           >
+            {console.log(currentClass?.students?.map((e) => e._id))}
             <Form.Item name="name" label="Tên lớp" rules={[{ required: true }]}>
               <Input />
             </Form.Item>

@@ -10,6 +10,7 @@ import {
   GET_CLASS_BY_ID,
   GET_CLASS_BY_ID_FAILED,
   GET_CLASS_FAILED,
+  LOAD_CLASS,
   SET_CLASS_LOADING,
   UPDATE_CLASS,
   UPDATE_CLASS_FAIELD,
@@ -17,6 +18,10 @@ import {
 
 export const setClassLoading = () => ({
   type: SET_CLASS_LOADING,
+});
+
+export const setClassByIdLoading = () => ({
+  type: LOAD_CLASS,
 });
 
 // GET
@@ -40,7 +45,7 @@ export const getAllClass = (payload) => (dispatch) => {
 
 // GET ID
 export const getClassById = (id) => (dispatch) => {
-  dispatch(setClassLoading());
+  dispatch(setClassByIdLoading());
   axios
     .get(`/api/class/${id}`)
     .then((res) => {
