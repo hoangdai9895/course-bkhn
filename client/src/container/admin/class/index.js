@@ -41,6 +41,12 @@ const ClassManagement = () => {
       ),
     },
     {
+      title: "Số học sinh",
+      dataIndex: "students",
+      key: "students",
+      render: (students) => students?.length,
+    },
+    {
       title: "Ngày tạo",
       dataIndex: "create",
       key: "create",
