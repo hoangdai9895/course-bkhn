@@ -6,12 +6,12 @@ const passport = require("passport");
 const admin = require("../utils/admin");
 
 router.get("/", async (req, res) => {
-	let count = await Class.countDocuments();
 	const { page, id } = req.query;
-	const query = {};
-	console.log(id);
+	let query = {};
 	if (id) {
+		query = { ...query, students: id };
 	}
+	let count = await Class.countDocuments(query);
 	Class.find(query)
 		.populate({
 			path: "teacher",
