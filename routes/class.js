@@ -20,6 +20,10 @@ router.get("/", async (req, res) => {
 		.populate({
 			path: "exam",
 			model: "Exam",
+			populate: {
+				path: "questions",
+				model: "Question",
+			},
 		})
 		.populate({
 			path: "students",
@@ -28,7 +32,6 @@ router.get("/", async (req, res) => {
 		.limit(10)
 		.skip((page ? page - 1 : 0) * 10)
 		.then((classData) => {
-			console.log(classData);
 			res.status(200).json({ data: classData, total: count });
 		})
 		.catch((err) => res.status(400).json({ err }));

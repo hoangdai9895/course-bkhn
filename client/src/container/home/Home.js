@@ -14,7 +14,7 @@ import course_4 from "../../assets/imgs/course-4.png";
 import heart from "../../assets/imgs/heart.png";
 import users from "../../assets/imgs/users.svg";
 import { Spin, Button } from "antd";
-import { getAllExam } from "../../redux/actions/exam";
+import { getAllClass } from "../../redux/actions/class";
 
 const course_imgs = [course_1, course_2, course_3, course_4];
 
@@ -34,7 +34,6 @@ const items = [
 		src: pig_3,
 		number: "100+",
 	},
-
 	{
 		title: "examinations",
 		src: pig_4,
@@ -54,13 +53,22 @@ var settings = {
 
 export const Home = () => {
 	const dispatch = useDispatch();
-	const { loading, exams } = useSelector(({ exam }) => exam);
+	const { isAdmin, isTeacher, user } = useSelector(({ auth }) => auth);
+	const { loadingClass } = useSelector((state) => state.class);
+	const exams = useSelector((state) =>
+		state.class.classes.map((e) => e.exam)
+	);
+
+	console.log(exams);
 
 	useEffect(() => {
-		// dispatch(getAllCourse())
-		dispatch(getAllExam());
+		let payload = {};
+		if (!isAdmin && !isTeacher) {
+			payload.id = user.id;
+		}
+		dispatch(getAllClass(payload));
 		// eslint-disable-next-line
-	}, []);
+	}, [isAdmin, isTeacher, user]);
 
 	return (
 		<div>
@@ -81,12 +89,15 @@ export const Home = () => {
 			<div className="home-recomendation">
 				<h3>Exam recomendation</h3>
 				<div className="slide-wrap">
-					{loading ? (
+					{loadingClass ? (
 						<div className="example">
 							<Spin size="large" />
 						</div>
 					) : (
-						<Slider {...settings}>
+						<Slider
+							{...settings}
+							slidesToShow={exams?.length >= 4 ? 4 : exams.length}
+						>
 							{exams.map((e, i) => (
 								<div key={i} className="slide-item">
 									<img
