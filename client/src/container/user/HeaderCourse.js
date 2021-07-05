@@ -6,6 +6,19 @@ import { useSelector } from "react-redux";
 const { Title, Paragraph } = Typography;
 
 const rendererTime = ({ hours, minutes, seconds, completed }) => {
+	window.onbeforeunload = function () {
+		localStorage.setItem(
+			"time",
+			JSON.stringify({
+				hours,
+				minutes,
+				seconds,
+				completed,
+			})
+		);
+		return false;
+	};
+
 	if (completed) return "Hết giờ";
 	return (
 		<span>
@@ -16,6 +29,18 @@ const rendererTime = ({ hours, minutes, seconds, completed }) => {
 
 export const HeaderCourse = React.memo(({ start, setStart, done, isDone }) => {
 	const { exam } = useSelector(({ exam }) => exam);
+
+	const renderDate = (time) => {
+		console.log(time);
+		let localTime = JSON.parse(localStorage.getItem("time"));
+		console.log(localTime);
+		if (localTime) {
+			return (
+				Date.now() + (localTime.minutes * 60 + localTime.seconds) * 1000
+			);
+		}
+		return Date.now() + exam.time * 60 * 1000;
+	};
 
 	if (Object.keys(exam).length === 0)
 		return (
@@ -52,7 +77,7 @@ export const HeaderCourse = React.memo(({ start, setStart, done, isDone }) => {
 										)
 									);
 							}}
-							date={Date.now() + exam.time * 60 * 1000}
+							date={renderDate(exam.time)}
 							renderer={rendererTime}
 						/>
 					)}

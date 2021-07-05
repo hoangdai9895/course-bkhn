@@ -59,8 +59,6 @@ export const Home = () => {
 		state.class.classes.map((e) => e.exam)
 	);
 
-	console.log(exams);
-
 	useEffect(() => {
 		let payload = {};
 		if (!isAdmin && !isTeacher) {
