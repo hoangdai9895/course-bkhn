@@ -19,125 +19,115 @@ import { getAllClass } from "../../redux/actions/class";
 const course_imgs = [course_1, course_2, course_3, course_4];
 
 const items = [
-	{
-		title: "Course",
-		src: pig_1,
-		number: "100+",
-	},
-	{
-		title: "Students",
-		src: pig_2,
-		number: "10.000+",
-	},
-	{
-		title: "Session",
-		src: pig_3,
-		number: "100+",
-	},
-	{
-		title: "examinations",
-		src: pig_4,
-		number: "456+",
-	},
+  {
+    title: "Course",
+    src: pig_1,
+    number: "100+",
+  },
+  {
+    title: "Students",
+    src: pig_2,
+    number: "10.000+",
+  },
+  {
+    title: "Session",
+    src: pig_3,
+    number: "100+",
+  },
+  {
+    title: "examinations",
+    src: pig_4,
+    number: "456+",
+  },
 ];
 
 var settings = {
-	infinite: true,
-	speed: 250,
-	slidesToShow: 4,
-	slidesToScroll: 2,
-	autoplay: true,
-	arrows: false,
-	draggable: true,
+  infinite: true,
+  speed: 250,
+  slidesToShow: 4,
+  slidesToScroll: 2,
+  autoplay: true,
+  arrows: false,
+  draggable: true,
 };
 
 export const Home = () => {
-	const dispatch = useDispatch();
-	const { isAdmin, isTeacher, user } = useSelector(({ auth }) => auth);
-	const { loadingClass } = useSelector((state) => state.class);
-	const exams = useSelector((state) =>
-		state.class.classes.map((e) => e.exam)
-	);
+  const dispatch = useDispatch();
+  const { isAdmin, isTeacher, user } = useSelector(({ auth }) => auth);
+  const { loadingClass } = useSelector((state) => state.class);
+  const exams = useSelector((state) => state.class.classes.map((e) => e.exam));
 
-	useEffect(() => {
-		let payload = {};
-		if (!isAdmin && !isTeacher) {
-			payload.id = user.id;
-		}
-		dispatch(getAllClass(payload));
-		// eslint-disable-next-line
-	}, [isAdmin, isTeacher, user]);
+  useEffect(() => {
+    let payload = {};
+    if (!isAdmin && !isTeacher) {
+      payload.id = user.id;
+    }
+    dispatch(getAllClass(payload));
+    // eslint-disable-next-line
+  }, [isAdmin, isTeacher, user]);
 
-	return (
-		<div>
-			<div className="about-home">
-				<div className="row">
-					{items.map((e, i) => (
-						<div className="item" key={i}>
-							<img src={e.src} alt="" />
-							<p>{e.title}</p>
-							<span>
-								<b>{e.number}</b>
-							</span>
-						</div>
-					))}
-				</div>
-			</div>
+  return (
+    <div>
+      <div className="about-home">
+        <div className="row">
+          {items.map((e, i) => (
+            <div className="item" key={i}>
+              <img src={e.src} alt="" />
+              <p>{e.title}</p>
+              <span>
+                <b>{e.number}</b>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-			<div className="home-recomendation">
-				<h3>Exam recomendation</h3>
-				<div className="slide-wrap">
-					{loadingClass ? (
-						<div className="example">
-							<Spin size="large" />
-						</div>
-					) : (
-						<Slider
-							{...settings}
-							slidesToShow={exams?.length >= 4 ? 4 : exams.length}
-						>
-							{exams.map((e, i) => (
-								<div key={i} className="slide-item">
-									<img
-										src={
-											course_imgs[
-												Math.floor(
-													Math.random() * (3 - 0 + 1)
-												) + 0
-											]
-										}
-										alt=""
-									/>
-									<div className="info-course">
-										<div className="title">
-											<p>{e.title}</p>
-											<img src={heart} alt="" />
-										</div>
-										<div className="des">{e.des || ""}</div>
-										<div className="route">
-											<div className="react">
-												<img src={heart} alt="" />
-												<span>325</span>
-												<img src={users} alt="" />
-												<span>10</span>
-											</div>
-											<div className="link">
-												<Button type="primary">
-													<Link
-														to={`exam/take/${e._id}`}
-													>
-														Join now
-													</Link>
-												</Button>
-											</div>
-										</div>
-									</div>
-								</div>
-							))}
-						</Slider>
-					)}
-				</div>
-			</div>
-		</div>
-	);
+      <div className="home-recomendation">
+        <h3>Exam recomendation</h3>
+        <div className="slide-wrap">
+          {loadingClass ? (
+            <div className="example">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <Slider
+              {...settings}
+              slidesToShow={exams?.length >= 4 ? 4 : exams.length}
+            >
+              {exams.map((e, i) => (
+                <div key={i} className="slide-item">
+                  <img
+                    src={
+                      course_imgs[Math.floor(Math.random() * (3 - 0 + 1)) + 0]
+                    }
+                    alt=""
+                  />
+                  <div className="info-course">
+                    <div className="title">
+                      <p>{e?.title}</p>
+                      <img src={heart} alt="" />
+                    </div>
+                    <div className="des">{e?.des || ""}</div>
+                    <div className="route">
+                      <div className="react">
+                        <img src={heart} alt="" />
+                        <span>325</span>
+                        <img src={users} alt="" />
+                        <span>10</span>
+                      </div>
+                      <div className="link">
+                        <Button type="primary">
+                          <Link to={`exam/take/${e._id}`}>Join now</Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
