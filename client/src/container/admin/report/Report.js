@@ -29,7 +29,13 @@ export const Report = () => {
       title: "Bài thi",
       dataIndex: "exam",
       key: "exam",
-      render: (e) => <Link to={`exam/take/${e?._id}`}>{e?.title}</Link>,
+      render: (e) => {
+        if (!e?._id) {
+          return "Bài thi đã bị xóa khỏi hệ thống";
+        } else {
+          return <Link to={`exam/take/${e?._id}`}>{e?.title}</Link>;
+        }
+      },
     },
     {
       title: "Cập nhật gần nhất",

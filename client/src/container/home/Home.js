@@ -83,7 +83,7 @@ export const Home = () => {
       </div>
 
       <div className="home-recomendation">
-        <h3>Exam recomendation</h3>
+        <h3>Bài thi đề xuất</h3>
         <div className="slide-wrap">
           {loadingClass ? (
             <div className="example">
@@ -117,7 +117,7 @@ export const Home = () => {
                       </div>
                       <div className="link">
                         <Button type="primary">
-                          <Link to={`exam/take/${e._id}`}>Join now</Link>
+                          <Link to={`exam/take/${e?._id}`}>Tham gia</Link>
                         </Button>
                       </div>
                     </div>

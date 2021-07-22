@@ -36,7 +36,9 @@ const UpdateClass = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const location = useLocation();
-  const { users, loadingUser, students } = useSelector(({ auth }) => auth);
+  const { users, loadingUser, students, isAdmin } = useSelector(
+    ({ auth }) => auth
+  );
   const { exams } = useSelector(({ exam }) => exam);
   const { classes, loadingClass, currentClass, loadingClassId } = useSelector(
     (state) => state.class
@@ -96,7 +98,11 @@ const UpdateClass = () => {
             </Form.Item>
 
             <Form.Item name="teacher" label="Giáo viên">
-              <Select style={{ width: "100%" }} loading={loadingUser}>
+              <Select
+                style={{ width: "100%" }}
+                loading={loadingUser}
+                disabled={!isAdmin}
+              >
                 {users.map((e) => (
                   <Option value={e?._id} key={e._id}>
                     {e?.name}

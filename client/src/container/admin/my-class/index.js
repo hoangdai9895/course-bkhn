@@ -1,4 +1,4 @@
-import { Card, Col, Row, Skeleton } from "antd";
+import { Card, Col, Row, Skeleton, Tag } from "antd";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,7 +52,11 @@ const MyClass = () => {
                   Ngay tao: {moment(e.create_at).format("YYYY-MM-DD HH:mm")}
                 </p>
                 Bai thi:{" "}
-                <Link to={`exam/take/${e.exam._id}`}>{e.exam.title}</Link>
+                {e?.exam?.title ? (
+                  <Link to={`exam/take/${e?.exam?._id}`}>{e?.exam?.title}</Link>
+                ) : (
+                  <Tag color="error">Chưa có bài thi</Tag>
+                )}
               </Card>
             ))}
         </div>

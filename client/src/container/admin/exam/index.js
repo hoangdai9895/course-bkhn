@@ -51,7 +51,7 @@ export const Exam = () => {
       dataIndex: "action",
       key: "action",
       render: (text, record) => {
-        if (isAdmin)
+        if (isAdmin || isTeacher)
           return (
             <div style={{ display: "flex" }}>
               <Link
@@ -92,7 +92,7 @@ export const Exam = () => {
 
   const { loading, exams } = useSelector((state) => state.exam);
 
-  const { isAdmin } = useSelector((state) => state.auth);
+  const { isAdmin, isTeacher } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getAllExam());
@@ -111,7 +111,7 @@ export const Exam = () => {
         />
       </Col>
       <Col xl={24}>
-        {isAdmin ? (
+        {isAdmin || isTeacher ? (
           <Link to="/exam/add-new">
             <Button
               type="dashed"

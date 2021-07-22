@@ -69,17 +69,19 @@ const ClassManagement = () => {
               <EditOutlined />
             </Link>
           </div>
-          <div>
-            <Popconfirm
-              placement="topLeft"
-              title={"Bạn chắc chắn muốn xóa lớp này không ?"}
-              onConfirm={() => confirm(record._id)}
-              okText="Có"
-              cancelText="Không"
-            >
-              <DeleteOutlined />
-            </Popconfirm>
-          </div>
+          {isAdmin && (
+            <div>
+              <Popconfirm
+                placement="topLeft"
+                title={"Bạn chắc chắn muốn xóa lớp này không ?"}
+                onConfirm={() => confirm(record._id)}
+                okText="Có"
+                cancelText="Không"
+              >
+                <DeleteOutlined />
+              </Popconfirm>
+            </div>
+          )}
         </div>
       ),
     },
@@ -91,6 +93,8 @@ const ClassManagement = () => {
   const { classes, loadingClass, total, deleteStatus } = useSelector(
     (_) => _.class
   );
+
+  const { isAdmin } = useSelector(({ auth }) => auth);
 
   const confirm = (id) => {
     id && dispatch(deleteClass(id));
@@ -126,14 +130,17 @@ const ClassManagement = () => {
         />
       </Col>
       <Col xl={24}>
-        <Link to="class/add-new">
-          <Button
-            type="dashed"
-            style={{ width: "100%", margin: "10px 0 10px 0" }}
-          >
-            <PlusCircleOutlined /> Thêm mới lớp học
-          </Button>{" "}
-        </Link>
+        {isAdmin && (
+          <Link to="class/add-new">
+            <Button
+              type="dashed"
+              style={{ width: "100%", margin: "10px 0 10px 0" }}
+            >
+              <PlusCircleOutlined /> Thêm mới lớp học
+            </Button>{" "}
+          </Link>
+        )}
+
         <Table
           columns={columns}
           loading={loadingClass}
