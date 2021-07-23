@@ -79,6 +79,11 @@ export default function (state = initialState, action) {
       });
       return {
         ...state,
+        user: {
+          ...state.user,
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+        },
         users: [...newUser],
       };
 

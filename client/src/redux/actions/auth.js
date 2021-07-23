@@ -13,6 +13,8 @@ import {
   DELETE_USER_FAILED,
   GET_ALL_STUDENT,
   GET_ALL_STUDENT_FAILED,
+  UPDATE_INFO,
+  UPDATE_INFO_FAILED,
 } from "./type";
 import axios from "axios";
 import setAuthToken from "../../common/setAuthToken";
@@ -101,10 +103,39 @@ export const updateUser = (payload) => (dispatch) => {
         type: UPDATE_USER,
         payload: res.data,
       });
+      setTimeout(() => {
+        dispatch(logoutUser());
+      }, 1000);
     })
     .catch((err) => {
       dispatch({
         type: UPDATE_USER_FAILED,
+        payload: err,
+      });
+    });
+};
+
+export const updateUserInfo = (payload) => (dispatch) => {
+  axios
+    .put(`/api/user/update-info`, payload)
+    .then((res) => {
+      notification.success({
+        message: "Cập nhật thông tin  thành công",
+      });
+      dispatch({
+        type: UPDATE_INFO,
+        payload: res.data,
+      });
+      setTimeout(() => {
+        dispatch(logoutUser());
+      }, 1000);
+    })
+    .catch((err) => {
+      notification.error({
+        message: "Sai mật khẩu!",
+      });
+      dispatch({
+        type: UPDATE_INFO_FAILED,
         payload: err,
       });
     });

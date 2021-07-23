@@ -21,78 +21,55 @@ import User from "./admin/user";
 import AddClass from "./admin/class/AddClass";
 import UpdateClass from "./admin/class/UpdateClass";
 import MyClass from "./admin/my-class";
+import Profile from "./profile";
+import ChangePassword from "./change-password";
 export const Routes = () => {
-	return (
-		<Router>
-			<Switch>
-				<Route exact path="/" component={Landing} />
-				<LayoutWrapper>
-					<Switch>
-						<PrivateRoute exact path="/Home" component={Home} />
-						<PrivateRoute
-							exact
-							path="/dashboard"
-							component={Dashboard}
-						/>
-						{/* <PrivateRoute exact path="/course" component={Course} /> */}
-						{/* <PrivateRoute
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <LayoutWrapper>
+          <Switch>
+            <PrivateRoute exact path="/Home" component={Home} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            {/* <PrivateRoute exact path="/course" component={Course} /> */}
+            {/* <PrivateRoute
 							path="/course/add-new"
 							component={AddCourse}
 						/> */}
-						{/* <PrivateRoute
+            {/* <PrivateRoute
 							path="/course/:id"
 							component={TakeCourse}
 						/> */}
-						<AdminRoute exact path="/exam" component={Exam} />
-						<AdminRoute path="/exam/add-new" component={AddExam} />
-						<PrivateRoute
-							path="/exam/take/:id"
-							component={TakeExam}
-						/>
-						<AdminRoute
-							exact
-							path="/question"
-							component={Question}
-						/>
-						<AdminRoute
-							exact
-							path="/class/add-new"
-							component={AddClass}
-						/>
+            <AdminRoute exact path="/exam" component={Exam} />
+            <AdminRoute path="/exam/add-new" component={AddExam} />
+            <PrivateRoute path="/exam/take/:id" component={TakeExam} />
+            <AdminRoute exact path="/question" component={Question} />
+            <AdminRoute exact path="/class/add-new" component={AddClass} />
 
-						<AdminRoute
-							exact
-							path="/class/update/:id"
-							component={UpdateClass}
-						/>
+            <AdminRoute
+              exact
+              path="/class/update/:id"
+              component={UpdateClass}
+            />
 
-						<AdminRoute
-							exact
-							path="/category"
-							component={Category}
-						/>
+            <AdminRoute exact path="/category" component={Category} />
 
-						<AdminRoute
-							exact
-							path="/class"
-							component={ClassManagement}
-						/>
-						<AdminRoute exact path="/users" component={User} />
+            <AdminRoute exact path="/class" component={ClassManagement} />
+            <AdminRoute exact path="/users" component={User} />
 
-						<AdminRoute
-							exact
-							path="/exam/edit/:id"
-							component={UpdateExam}
-						/>
-						<PrivateRoute exact path="/report" component={Report} />
-						<PrivateRoute
-							exact
-							path="/my-class"
-							component={MyClass}
-						/>
-					</Switch>
-				</LayoutWrapper>
-			</Switch>
-		</Router>
-	);
+            <AdminRoute exact path="/exam/edit/:id" component={UpdateExam} />
+            <PrivateRoute exact path="/report" component={Report} />
+            <PrivateRoute exact path="/my-class" component={MyClass} />
+            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute
+              exact
+              path="/change-password"
+              component={ChangePassword}
+            />
+          </Switch>
+        </LayoutWrapper>
+      </Switch>
+    </Router>
+  );
 };

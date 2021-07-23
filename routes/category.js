@@ -43,8 +43,8 @@ router.put(
 
 router.post(
   "/",
-  passport.authenticate("jwt", { session: false }),
-  admin,
+  // passport.authenticate("jwt", { session: false }),
+  // admin,
   (req, res) => {
     const category = new Category(req.body);
     category

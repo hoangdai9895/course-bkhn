@@ -79,6 +79,8 @@ export const DELETE_USER = "DELETE_USER";
 export const DELETE_USER_FAILED = "DELETE_USER_FAILED";
 export const GET_ALL_STUDENT = "GET_ALL_STUDENT";
 export const GET_ALL_STUDENT_FAILED = "GET_ALL_STUDENT_FAILED";
+export const UPDATE_INFO = "UPDATE_INFO";
+export const UPDATE_INFO_FAILED = "UPDATE_INFO_FAILED";
 
 //class
 export const GET_CLASS = "GET_CLASS";

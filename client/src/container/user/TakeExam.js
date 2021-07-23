@@ -126,7 +126,7 @@ export const TakeExam = () => {
               localStorage.removeItem("time");
             }}
           >
-            Hoan thanh
+            Hoàn thành
           </Button>
           <ResultModal
             visible={visible}

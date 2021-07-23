@@ -18,7 +18,7 @@ const { Header, Content, Footer } = Layout;
 export const LayoutWrapper = (props) => {
   const dispatch = useDispatch();
   const {
-    user: { username },
+    user: { name },
   } = useSelector((state) => state.auth);
   // const [collapsed, setcollapsed] = useState(false);
   // const toggle = () => {
@@ -27,6 +27,12 @@ export const LayoutWrapper = (props) => {
 
   const menu = (
     <Menu>
+      <Menu.Item>
+        <Link to="profile">Thông tin cá nhân</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="change-password">Đổi mật khẩu</Link>
+      </Menu.Item>
       <Menu.Item>
         <div onClick={() => dispatch(logoutUser())}>Đăng xuất</div>
       </Menu.Item>
@@ -62,20 +68,20 @@ export const LayoutWrapper = (props) => {
                 alt="user"
               />{" "}
               <div style={{ marginLeft: "10px", color: "#000" }}>
-                Xin chào {username}
+                Xin chào {name}
               </div>
             </div>
           </Dropdown>
         </Header>
         <div className="bg-search">
-          <div className="container">
+          {/* <div className="container">
             <div className="text" style={{ display: "none" }}>
               Search for anything
-            </div>
-            {/* <div className="input-wrap">
+            </div> */}
+          {/* <div className="input-wrap">
 								<input placeholder="Course, Document,..."/>
 							</div> */}
-          </div>
+          {/* </div> */}
         </div>
         <hr />
         <Content style={{ margin: "0 10px" }}>{props.children}</Content>
